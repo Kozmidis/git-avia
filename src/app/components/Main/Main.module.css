@@ -1,0 +1,10 @@
+.main {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.mainContainer {
+  margin: 0 0 0 20px;
+}
