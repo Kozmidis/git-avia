@@ -26,10 +26,10 @@
 }
 
 .userProfile {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  display: grid;
   align-content: center;
-  justify-content: space-evenly;
-  align-items: flex-end;
+  justify-content: end;
+  align-items: center;
+  box-sizing: border-box;
+  justify-items: end;
 }
