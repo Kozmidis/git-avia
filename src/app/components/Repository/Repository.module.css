@@ -1,9 +1,9 @@
 .repository {
   background-color: #fff;
-  box-shadow: 0px 1px 5px 0px #000000;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 500px;
-  height: 180px;
+  width: 502px;
+  height: 184px;
   padding: 20px;
   display: flex;
   margin-bottom: 20px;

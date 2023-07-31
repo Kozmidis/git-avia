@@ -1,6 +1,7 @@
 import styles from "../Repository/Repository.module.css";
 import { FC } from "react";
 import { ReposType } from "../../types/types";
+import { type } from "os";
 
 export const Repository: FC<ReposType> = ({
   owner,
@@ -8,7 +9,17 @@ export const Repository: FC<ReposType> = ({
   language,
   forks,
   html_url,
+  created_at,
 }) => {
+  const date = new Date(created_at);
+  function padTo2Digits(num: number) {
+    return num.toString().padStart(2, "0");
+  }
+  const year = date.getFullYear();
+  const month = padTo2Digits(date.getMonth() + 1);
+  const day = padTo2Digits(date.getDate());
+  const createdRep = [day, month, year].join(".");
+
   return (
     <div className={styles.repository}>
       <p className={styles.lang}>{language}</p>
@@ -22,7 +33,7 @@ export const Repository: FC<ReposType> = ({
       </a>
 
       <p className={styles.fork}>Форки: {forks}</p>
-      <p className={styles.dateCreated}>Дата создания: 26.06.1997</p>
+      <p className={styles.dateCreated}>Дата создания: {createdRep}</p>
     </div>
   );
 };

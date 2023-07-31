@@ -13,5 +13,12 @@ export type ReposType = {
   html_url: string;
   owner: OwnerType[];
   id: number;
+  created_at: string;
 };
 export type ResponseTypes = { items: ReposType[]; total_count: number };
+
+export type FormState = {
+  isLoaded: boolean;
+  isRepos: boolean;
+  reposNotFind: boolean;
+};
