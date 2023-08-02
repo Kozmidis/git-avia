@@ -11,7 +11,7 @@ export type ReposType = {
   forks: number;
   forks_count: number;
   html_url: string;
-  owner: OwnerType[];
+  owner: OwnerType;
   id: number;
   created_at: string;
 };
