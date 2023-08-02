@@ -32,4 +32,11 @@
   align-items: center;
   box-sizing: border-box;
   justify-items: end;
+  width: max-content;
+  align-self: end;
+}
+
+.repositoryName {
+  width: min-content;
+  white-space: nowrap;
 }

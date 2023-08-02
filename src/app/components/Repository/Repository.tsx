@@ -28,7 +28,7 @@ export const Repository: FC<ReposType> = ({
         <p className={styles.userName}>{owner.login}</p>
       </a>
 
-      <a href={html_url}>
+      <a className={styles.repositoryName} href={html_url}>
         <h3 className={styles.repositoryName}>{name}</h3>
       </a>
 

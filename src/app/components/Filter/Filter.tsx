@@ -99,6 +99,28 @@ export const Filter: React.FC<FilterProps> = ({
           <p className={styles.filterItemName}>Python</p>
         </label>
       </div>
+      <div>
+        <p className={styles.containerTitle}>Дополнительно:</p>
+        <label className={styles.filterItem}>
+          <input className={styles.vanish} type="checkbox" value="Js"></input>
+          <span></span>
+          <p className={styles.filterItemName}>Форки:</p>
+        </label>
+        <label className={styles.filterItem}>
+          <input className={styles.vanish} type="checkbox" value="Go"></input>
+          <span></span>
+          <p className={styles.filterItemName}>Звёзды</p>
+        </label>
+        <label className={styles.filterItem}>
+          <input
+            className={styles.vanish}
+            type="checkbox"
+            value="Python"
+          ></input>
+          <span></span>
+          <p className={styles.filterItemName}>форк?</p>
+        </label>
+      </div>
       <button
         onClick={handleClick}
         className={styles.button}

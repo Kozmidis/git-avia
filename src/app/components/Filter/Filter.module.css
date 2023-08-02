@@ -36,7 +36,7 @@
 }
 
 .containerTitle {
-  margin-top: 20px;
+  margin-top: 5px;
   padding-left: 20px;
   /* color: #2196f3; */
 }
@@ -48,7 +48,7 @@
 }
 
 .input {
-  margin: 12px 13px 0;
+  margin: 12px 13px 15px;
   height: 30px;
   width: 90%;
   border: none;
