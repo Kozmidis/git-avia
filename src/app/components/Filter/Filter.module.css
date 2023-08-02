@@ -85,3 +85,24 @@
   border-color: #2196f3;
   outline: 0;
 }
+
+.vanish[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.vanish[type="checkbox"] + span {
+  border: 1px solid #9abbce;
+  width: 1em;
+  height: 1em;
+}
+
+.vanish[type="checkbox"]:checked + span {
+  background-position: center;
+  background-image: url(../../../../public/images/checkbox.svg);
+  background-repeat: no-repeat;
+  border: 1px solid #2196f3;
+}

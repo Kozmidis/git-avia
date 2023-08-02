@@ -2,9 +2,9 @@
 import styles from "../Filter/Filter.module.css";
 import React, { useState, ChangeEvent, MouseEvent } from "react";
 import { type } from "os";
-import { ResponseTypes, ReposType, FormState } from "../../types/types";
+import { ResponseTypes, FormState, OwnerType } from "../../types/types";
 
-type FilterProps = {
+type FilterProps = Pick<ResponseTypes, "total_count"> & {
   inputValue: string;
   setInputValue: (inputValue: string) => void;
   repos: ResponseTypes;
@@ -39,12 +39,22 @@ export const Filter: React.FC<FilterProps> = ({
           const data = await res.json();
           console.log(data);
           setRepos(data);
-          setState({
-            ...formState,
-            isLoaded: false,
-            isRepos: true, //добавить проверку по total_count
-            reposNotFind: false,
-          });
+          if (data.total_count != 0) {
+            setState({
+              ...formState,
+              isLoaded: false,
+              isRepos: true, //добавить проверку по total_count
+              reposNotFind: false,
+            });
+          } else {
+            setState({
+              ...formState,
+              isLoaded: false,
+              isRepos: false,
+              reposNotFind: true,
+            });
+            console.log("Репозиторий не найден");
+          }
         }
       });
     } catch (event: any) {
@@ -70,15 +80,22 @@ export const Filter: React.FC<FilterProps> = ({
       <div className={styles.languageContainer}>
         <p className={styles.containerTitle}>Язык программирования:</p>
         <label className={styles.filterItem}>
-          <input type="checkbox" value="Js"></input>
+          <input className={styles.vanish} type="checkbox" value="Js"></input>
+          <span></span>
           <p className={styles.filterItemName}>Js</p>
         </label>
         <label className={styles.filterItem}>
-          <input type="checkbox" value="Go"></input>
+          <input className={styles.vanish} type="checkbox" value="Go"></input>
+          <span></span>
           <p className={styles.filterItemName}>Go</p>
         </label>
         <label className={styles.filterItem}>
-          <input type="checkbox" value="Python"></input>
+          <input
+            className={styles.vanish}
+            type="checkbox"
+            value="Python"
+          ></input>
+          <span></span>
           <p className={styles.filterItemName}>Python</p>
         </label>
       </div>

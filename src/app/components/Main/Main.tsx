@@ -5,6 +5,7 @@ import styles from "../Main/Main.module.css";
 import React, { useState } from "react";
 
 import { ResponseTypes, ReposType, OwnerType } from "../../types/types";
+import { totalmem } from "os";
 
 const defaultRepos: ResponseTypes = { items: [], total_count: 0 };
 export const Main = () => {
@@ -25,9 +26,16 @@ export const Main = () => {
         setRepos={setRepos}
         formState={state}
         setState={setState}
+        total_count={repos.total_count}
       />
       <div className={styles.mainContainer}>
-        <Repositories repos={repos} isRepos={state.isRepos} />
+        {state.reposNotFind ? (
+          <div className={styles.reposNotFind}>
+            <h3>Нет подходящих по запросу репозиториев</h3>
+          </div>
+        ) : (
+          <Repositories repos={repos} isRepos={state.isRepos} />
+        )}
       </div>
     </div>
   );
