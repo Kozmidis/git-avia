@@ -10,6 +10,7 @@ export const Repository: FC<ReposType> = ({
   forks,
   html_url,
   created_at,
+  stargazers_count,
 }) => {
   const date = new Date(created_at);
   function padTo2Digits(num: number) {
@@ -31,8 +32,13 @@ export const Repository: FC<ReposType> = ({
       <a className={styles.repositoryName} href={html_url}>
         <h3 className={styles.repositoryName}>{name}</h3>
       </a>
+      <div className={styles.container}>
+        <div className={styles.stars}></div>
+        <p className={styles.fork}>Stars: {stargazers_count}</p>
+        <div className={styles.forkImage}></div>
+        <p className={styles.fork}>Forks: {forks}</p>
+      </div>
 
-      <p className={styles.fork}>Форки: {forks}</p>
       <p className={styles.dateCreated}>Дата создания: {createdRep}</p>
     </div>
   );

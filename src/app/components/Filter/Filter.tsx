@@ -2,7 +2,7 @@
 import styles from "../Filter/Filter.module.css";
 import React, { useState, ChangeEvent, MouseEvent } from "react";
 import { type } from "os";
-import { ResponseTypes, FormState, OwnerType } from "../../types/types";
+import { ResponseTypes, FormState } from "../../types/types";
 
 type FilterProps = Pick<ResponseTypes, "total_count"> & {
   inputValue: string;
@@ -102,21 +102,17 @@ export const Filter: React.FC<FilterProps> = ({
       <div>
         <p className={styles.containerTitle}>Дополнительно:</p>
         <label className={styles.filterItem}>
-          <input className={styles.vanish} type="checkbox" value="Js"></input>
+          <input className={styles.vanish} type="checkbox"></input>
           <span></span>
           <p className={styles.filterItemName}>Форки:</p>
         </label>
         <label className={styles.filterItem}>
-          <input className={styles.vanish} type="checkbox" value="Go"></input>
+          <input className={styles.vanish} type="checkbox"></input>
           <span></span>
           <p className={styles.filterItemName}>Звёзды</p>
         </label>
         <label className={styles.filterItem}>
-          <input
-            className={styles.vanish}
-            type="checkbox"
-            value="Python"
-          ></input>
+          <input className={styles.vanish} type="checkbox"></input>
           <span></span>
           <p className={styles.filterItemName}>форк?</p>
         </label>

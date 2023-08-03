@@ -40,3 +40,25 @@
   width: min-content;
   white-space: nowrap;
 }
+
+.container {
+  display: flex;
+}
+
+.stars {
+  background-image: url(../../../../public/images/star.svg);
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+}
+
+.fork {
+  margin: 0 12px 0 3px;
+}
+
+.forkImage {
+  background-image: url(../../../../public/images/forks.svg);
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+}
