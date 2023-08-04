@@ -1,6 +1,6 @@
 .main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: 24px;
   margin: 0 auto;
   align-items: start;

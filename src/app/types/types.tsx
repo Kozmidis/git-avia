@@ -14,6 +14,7 @@ export type ReposType = {
   owner: OwnerType;
   id: number;
   created_at: string;
+  stargazers_count: number;
 };
 export type ResponseTypes = { items: ReposType[]; total_count: number };
 
@@ -21,4 +22,9 @@ export type FormState = {
   isLoaded: boolean;
   isRepos: boolean;
   reposNotFind: boolean;
+};
+
+export type CountFilters = {
+  fork: number;
+  stars: number;
 };

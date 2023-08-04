@@ -4,7 +4,7 @@ import { Repositories } from "../Repositories/Repositories";
 import styles from "../Main/Main.module.css";
 import React, { useState } from "react";
 
-import { ResponseTypes, ReposType, OwnerType } from "../../types/types";
+import { ResponseTypes, ReposType } from "../../types/types";
 
 const defaultRepos: ResponseTypes = { items: [], total_count: 0 };
 export const Main = () => {

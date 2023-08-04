@@ -2,7 +2,7 @@
 import styles from "../Filter/Filter.module.css";
 import React, { useState, ChangeEvent, MouseEvent } from "react";
 import { type } from "os";
-import { ResponseTypes, FormState } from "../../types/types";
+import { ResponseTypes, FormState, CountFilters } from "../../types/types";
 
 type FilterProps = Pick<ResponseTypes, "total_count"> & {
   inputValue: string;
@@ -20,6 +20,11 @@ const langFilters = [
   { id: "3", value: "python", text: "Python" },
 ];
 
+const countFulters = [
+  { id: "1", text: "Forks" },
+  { id: "2", text: "Stars" },
+];
+
 export const Filter: React.FC<FilterProps> = ({
   inputValue,
   setInputValue,
@@ -30,6 +35,31 @@ export const Filter: React.FC<FilterProps> = ({
   formState,
   setState,
 }) => {
+  const [count, setCount] = useState<CountFilters>({ fork: 0, stars: 0 });
+  const [forkState, setForkState] = useState("only");
+
+  const forkStatusChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (forkState == "only") {
+      setForkState("false");
+    } else {
+      setForkState("only");
+    }
+  };
+
+  const countChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.id == "1") {
+      setCount({
+        fork: parseInt(event.target.value, 10),
+        stars: count.stars,
+      });
+    } else {
+      setCount({
+        fork: count.fork,
+        stars: parseInt(event.target.value, 10),
+      });
+    }
+  };
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -41,11 +71,17 @@ export const Filter: React.FC<FilterProps> = ({
     }
   };
 
-  const lang = {
-    yes: "+language:",
-    nope: "",
-  };
-
+  const queryString =
+    "q=" +
+    inputValue +
+    " stars:" +
+    count.stars +
+    " forks:" +
+    count.fork +
+    " fork:" +
+    forkState +
+    " language:" +
+    checkBoxValue;
   const handleClick = async (event: MouseEvent) => {
     try {
       setState({
@@ -55,11 +91,10 @@ export const Filter: React.FC<FilterProps> = ({
         reposNotFind: false,
       });
       await fetch(
-        `https://api.github.com/search/repositories?q=${inputValue}${
-          checkBoxValue === "" ? lang.nope : lang.yes
-        }${checkBoxValue}&sort=stars&per_page=10&order=desc`
+        `https://api.github.com/search/repositories?${queryString}&sort=stars&per_page=10&order=desc`
       ).then(async (res) => {
         if (res.ok) {
+          // console.log(queryString);
           const data = await res.json();
           console.log(data);
           setRepos(data);
@@ -118,24 +153,30 @@ export const Filter: React.FC<FilterProps> = ({
           </label>
         ))}
       </div>
-      {/* <div>
+      <div>
         <p className={styles.containerTitle}>Дополнительно:</p>
-        <label className={styles.filterItem}>
-          <input className={styles.vanish} type="checkbox"></input>
-          <span></span>
-          <p className={styles.filterItemName}>Форки:</p>
-        </label>
-        <label className={styles.filterItem}>
-          <input className={styles.vanish} type="checkbox"></input>
-          <span></span>
-          <p className={styles.filterItemName}>Звёзды</p>
-        </label>
-        <label className={styles.filterItem}>
-          <input className={styles.vanish} type="checkbox"></input>
-          <span></span>
-          <p className={styles.filterItemName}>форк?</p>
-        </label>
-      </div> */}
+        {countFulters.map((item) => (
+          <div key={item.id}>
+            <input
+              placeholder="кол-во"
+              type="number"
+              id={item.id}
+              className={styles.input}
+              onChange={countChange}
+            ></input>
+            <span>{item.text}</span>
+          </div>
+        ))}
+      </div>
+      <p className={styles.containerTitle}>Форк?</p>
+      <label className={styles.checkBox_fork}>
+        <input type="checkbox" onChange={forkStatusChange} />
+        <span
+          className={styles.checkBox_fork_switch}
+          data-label-on="НЕТ"
+          data-label-off="ДА"
+        ></span>
+      </label>
       <button
         onClick={handleClick}
         className={styles.button}
