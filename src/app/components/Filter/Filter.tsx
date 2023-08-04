@@ -74,10 +74,8 @@ export const Filter: React.FC<FilterProps> = ({
   const queryString =
     "q=" +
     inputValue +
-    " stars:" +
-    count.stars +
-    " forks:" +
-    count.fork +
+    (count.stars <= 0 ? "" : " stars:" + count.stars) +
+    (count.fork <= 0 ? "" : " forks:" + count.fork) +
     " fork:" +
     forkState +
     " language:" +
