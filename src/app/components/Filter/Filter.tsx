@@ -7,15 +7,24 @@ import { ResponseTypes, FormState } from "../../types/types";
 type FilterProps = Pick<ResponseTypes, "total_count"> & {
   inputValue: string;
   setInputValue: (inputValue: string) => void;
+  checkBoxValue: string;
+  setCheckBoxValue: (checkBoxValue: string) => void;
   repos: ResponseTypes;
   setRepos: (repos: ResponseTypes) => void;
   formState: FormState;
   setState: (formState: FormState) => void;
 };
+const langFilters = [
+  { id: "1", value: "javascript", text: "JavaScript" },
+  { id: "2", value: "go", text: "Go" },
+  { id: "3", value: "python", text: "Python" },
+];
 
 export const Filter: React.FC<FilterProps> = ({
   inputValue,
   setInputValue,
+  checkBoxValue,
+  setCheckBoxValue,
   repos,
   setRepos,
   formState,
@@ -24,6 +33,14 @@ export const Filter: React.FC<FilterProps> = ({
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
+  const handleCheckBoxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (checkBoxValue === event.target.value) {
+      setCheckBoxValue("");
+    } else {
+      setCheckBoxValue(event.target.value);
+    }
+  };
+
   const handleClick = async (event: MouseEvent) => {
     try {
       setState({
@@ -33,7 +50,7 @@ export const Filter: React.FC<FilterProps> = ({
         reposNotFind: false,
       });
       await fetch(
-        `https://api.github.com/search/repositories?q=${inputValue}+language:javascript&sort=stars&per_page=10&order=desc`
+        `https://api.github.com/search/repositories?q=${inputValue}+language:${checkBoxValue}&sort=stars&per_page=10&order=desc`
       ).then(async (res) => {
         if (res.ok) {
           const data = await res.json();
@@ -79,25 +96,20 @@ export const Filter: React.FC<FilterProps> = ({
       ></input>
       <div className={styles.languageContainer}>
         <p className={styles.containerTitle}>Язык программирования:</p>
-        <label className={styles.filterItem}>
-          <input className={styles.vanish} type="checkbox" value="Js"></input>
-          <span></span>
-          <p className={styles.filterItemName}>Js</p>
-        </label>
-        <label className={styles.filterItem}>
-          <input className={styles.vanish} type="checkbox" value="Go"></input>
-          <span></span>
-          <p className={styles.filterItemName}>Go</p>
-        </label>
-        <label className={styles.filterItem}>
-          <input
-            className={styles.vanish}
-            type="checkbox"
-            value="Python"
-          ></input>
-          <span></span>
-          <p className={styles.filterItemName}>Python</p>
-        </label>
+        {langFilters.map((item) => (
+          <label key={item.id} className={styles.filterItem}>
+            <input
+              className={styles.vanish}
+              type="checkbox"
+              id={item.id}
+              value={item.value}
+              onChange={handleCheckBoxChange}
+              checked={checkBoxValue === item.value}
+            ></input>
+            <span></span>
+            <p className={styles.filterItemName}>{item.text}</p>
+          </label>
+        ))}
       </div>
       <div>
         <p className={styles.containerTitle}>Дополнительно:</p>

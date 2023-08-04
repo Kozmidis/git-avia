@@ -9,6 +9,7 @@ import { ResponseTypes, ReposType, OwnerType } from "../../types/types";
 const defaultRepos: ResponseTypes = { items: [], total_count: 0 };
 export const Main = () => {
   const [inputValue, setInputValue] = useState("");
+  const [checkBoxValue, setCheckBoxValue] = useState("");
   const [repos, setRepos] = React.useState<ResponseTypes>(defaultRepos);
   const [state, setState] = React.useState({
     isLoaded: false,
@@ -21,6 +22,8 @@ export const Main = () => {
       <Filter
         inputValue={inputValue}
         setInputValue={setInputValue}
+        checkBoxValue={checkBoxValue}
+        setCheckBoxValue={setCheckBoxValue}
         repos={repos}
         setRepos={setRepos}
         formState={state}
